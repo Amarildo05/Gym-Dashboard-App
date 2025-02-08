@@ -1,9 +1,16 @@
+import UserModal from "./components/UserModal";
+import UserTable from "./components/UserTable";
+
 export default function App() {
   return (
-    <>
-      <div className="container">
-        <h1 className="text-center py-5">Dashboard Demo</h1>
-      </div>
-    </>
+    <div>
+      <button type="button" className="btn-primary">
+        Create New User
+      </button>
+
+      <UserTable />
+
+      <UserModal />
+    </div>
   );
 }
