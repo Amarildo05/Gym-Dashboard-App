@@ -1,0 +1,16 @@
+{
+  "users": [
+    {
+      "id": "1",
+      "name": "John Doe",
+      "role": "Admin",
+      "is_validated": "Yes"
+    },
+    {
+      "id": "61aa",
+      "name": "amarildo",
+      "role": "kola",
+      "is_validated": "1233245345356"
+    }
+  ]
+}
