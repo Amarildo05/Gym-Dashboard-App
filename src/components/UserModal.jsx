@@ -37,9 +37,16 @@ export default function UserModal({
   if (!visible) return null;
 
   return (
-    <div className="modal">
-      <div className="modal-content">
-        <h2>{creatingUser ? "Create New User" : "Edit User"}</h2>
+    <div
+      className={`fixed inset-0 flex justify-center items-center ${
+        !visible && "hidden"
+      }`}
+    >
+      <div className="bg-white rounded-lg shadow-lg w-96 p-6">
+        <h2 className="text-2xl font-semibold mb-4">
+          {creatingUser ? "Create New User" : "Edit User"}
+        </h2>
+
         <UserForm
           name={name}
           role={role}
@@ -48,11 +55,20 @@ export default function UserModal({
           setRole={setRole}
           setIsValidated={setIsValidated}
         />
-        <div className="modal-actions">
-          <button onClick={handleSubmit}>
+
+        <div className="flex justify-end mt-4">
+          <button
+            onClick={handleSubmit}
+            className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300 mr-2"
+          >
             {creatingUser ? "Create" : "Save"}
           </button>
-          <button onClick={onCancel}>Cancel</button>
+          <button
+            onClick={onCancel}
+            className="px-4 py-2 bg-gray-300 text-gray-800 rounded hover:bg-gray-400 transition duration-300"
+          >
+            Cancel
+          </button>
         </div>
       </div>
     </div>
