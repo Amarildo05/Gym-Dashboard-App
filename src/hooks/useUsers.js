@@ -6,7 +6,7 @@ export const useUsers = () => {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:3000/users");
+      const response = await axios.get("http://localhost:3001/users");
       setData(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
@@ -15,7 +15,7 @@ export const useUsers = () => {
 
   const createUser = async (newUser) => {
     try {
-      const response = await axios.post("http://localhost:3000/users", newUser);
+      const response = await axios.post("http://localhost:3001/users", newUser);
       setData([...data, response.data]);
     } catch (error) {
       console.error("Error creating user:", error);
@@ -25,7 +25,7 @@ export const useUsers = () => {
   const updateUser = async (updatedUser) => {
     try {
       await axios.put(
-        `http://localhost:3000/users/${updatedUser.id}`,
+        `http://localhost:3001/users/${updatedUser.id}`,
         updatedUser
       );
       setData(
@@ -38,7 +38,7 @@ export const useUsers = () => {
 
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:3000/users/${id}`);
+      await axios.delete(`http://localhost:3001/users/${id}`);
       setData(data.filter((item) => item.id !== id));
     } catch (error) {
       console.error("Error deleting user:", error);
