@@ -25,11 +25,11 @@ export const useUsers = () => {
   const updateUser = async (updatedUser) => {
     try {
       await axios.put(
-        `http://localhost:3001/users/${updatedUser.id}`,
+        `http://localhost:3001/users/${updatedUser._id}`,
         updatedUser
       );
       setData(
-        data.map((item) => (item.id === updatedUser.id ? updatedUser : item))
+        data.map((item) => (item._id === updatedUser._id ? updatedUser : item))
       );
     } catch (error) {
       console.error("Error updating user:", error);
@@ -39,9 +39,12 @@ export const useUsers = () => {
   const deleteUser = async (id) => {
     try {
       await axios.delete(`http://localhost:3001/users/${id}`);
-      setData(data.filter((item) => item.id !== id));
+      setData(data.filter((item) => item._id !== id));
     } catch (error) {
-      console.error("Error deleting user:", error);
+      console.error(
+        "Error deleting user:",
+        error.response ? error.response.data : error.message
+      );
     }
   };
 
