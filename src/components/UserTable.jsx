@@ -32,6 +32,8 @@ export default function UserTable({ data, onEdit, onDelete }) {
     },
   ];
 
+  // console.log(data); // Testing for a infinite loop problem 
+
   return (
     <table className="table-auto w-full bg-white shadow-md rounded-lg border border-gray-200">
       <thead className="bg-gray-200">
@@ -47,15 +49,20 @@ export default function UserTable({ data, onEdit, onDelete }) {
         </tr>
       </thead>
       <tbody>
-        {data.map((user) => (
-          <tr key={user.id} className="hover:bg-gray-50">
-            {columns.map((col) => (
-              <td key={col.key} className="border-t px-4 py-2">
-                {col.render ? col.render(user) : user[col.dataIndex]}
-              </td>
-            ))}
-          </tr>
-        ))}
+        {data.map((user, index) => {
+          // Ensure unique key (use user._id or user.id)
+          const userId = user._id?.$oid || user.id;
+
+          return (
+            <tr key={userId || index} className="hover:bg-gray-50">
+              {columns.map((col) => (
+                <td key={col.key} className="border-t px-4 py-2">
+                  {col.render ? col.render(user) : user[col.dataIndex]}
+                </td>
+              ))}
+            </tr>
+          );
+        })}
       </tbody>
     </table>
   );
