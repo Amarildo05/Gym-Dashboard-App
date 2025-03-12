@@ -32,8 +32,6 @@ export default function UserTable({ data, onEdit, onDelete }) {
     },
   ];
 
-  // console.log(data); // Testing for a infinite loop problem 
-
   return (
     <table className="table-auto w-full bg-white shadow-md rounded-lg border border-gray-200">
       <thead className="bg-gray-200">

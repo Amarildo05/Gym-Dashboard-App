@@ -1,17 +1,17 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import axios from "axios";
 
 export const useUsers = () => {
   const [data, setData] = useState([]);
 
-  const fetchData = async () => {
+  const fetchData = useCallback(async () => {
     try {
       const response = await axios.get("http://localhost:3001/users");
       setData(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
-  };
+  }, []);
 
   const createUser = async (newUser) => {
     try {
