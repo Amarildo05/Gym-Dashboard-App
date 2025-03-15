@@ -30,7 +30,7 @@ export default function UserModal({
     if (creatingUser) {
       onCreate({ name, role, is_validated: isValidated });
     } else {
-      onUpdate({ id: editingItem.id, name, role, is_validated: isValidated });
+      onUpdate({ _id: editingItem._id, name, role, is_validated: isValidated });
     }
   };
 
