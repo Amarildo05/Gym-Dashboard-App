@@ -7,6 +7,10 @@ export default function UserTable({ data, onEdit, onDelete }) {
       title: "Id",
       dataIndex: "id",
       key: "id",
+      render: (user) => {
+        // Check if user._id is an object (from MongoDB objectId) or a string
+        return user._id && user._id.$oid ? user._id.$oid : user._id;
+      },
     },
     {
       title: "Name",
@@ -48,8 +52,7 @@ export default function UserTable({ data, onEdit, onDelete }) {
       </thead>
       <tbody>
         {data.map((user, index) => {
-          // Ensure unique key (use user._id or user.id)
-          const userId = user._id?.$oid || user.id;
+          const userId = user._id?.$oid || user._id; // Get the correct id format
 
           return (
             <tr key={userId || index} className="hover:bg-gray-50">
