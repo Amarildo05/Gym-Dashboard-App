@@ -10,27 +10,36 @@ export default function UserModal({
   onCancel,
   editingItem,
 }) {
-  const [name, setName] = useState("");
-  const [role, setRole] = useState("");
-  const [isValidated, setIsValidated] = useState("");
+  const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [emailAddress, setEmailAddress] = useState("");
+  const [membershipStartDate, setMembershipStartDate] = useState("");
+  const [nextPaymentDate, setNextPaymentDate] = useState("");
+  const [paymentStatus, setPaymentStatus] = useState("");
 
   useEffect(() => {
     if (editingItem) {
-      setName(editingItem.name);
-      setRole(editingItem.role);
-      setIsValidated(editingItem.is_validated);
+      setFullName(editingItem.fullName);
+      setPhoneNumber(editingItem.phoneNumber);
+      setEmailAddress(editingItem.emailAddress);
+      setMembershipStartDate(editingItem.membershipStartDate);
+      setNextPaymentDate(editingItem.nextPaymentDate);
+      setPaymentStatus(editingItem.paymentStatus);
     } else {
-      setName("");
-      setRole("");
-      setIsValidated("");
+      setFullName("");
+      setPhoneNumber("");
+      setEmailAddress("");
+      setMembershipStartDate("");
+      setNextPaymentDate("");
+      setPaymentStatus("");
     }
   }, [editingItem]);
 
   const handleSubmit = () => {
     if (creatingUser) {
-      onCreate({ name, role, is_validated: isValidated });
+      onCreate({ fullName, phoneNumber, emailAddress, membershipStartDate, nextPaymentDate, paymentStatus });
     } else {
-      onUpdate({ _id: editingItem._id, name, role, is_validated: isValidated });
+      onUpdate({ _id: editingItem._id, fullName, phoneNumber, emailAddress, membershipStartDate, nextPaymentDate, paymentStatus });
     }
   };
 
@@ -48,12 +57,18 @@ export default function UserModal({
         </h2>
 
         <UserForm
-          name={name}
-          role={role}
-          isValidated={isValidated}
-          setName={setName}
-          setRole={setRole}
-          setIsValidated={setIsValidated}
+          fullName={fullName}
+          phoneNumber={phoneNumber}
+          emailAddress={emailAddress}
+          membershipStartDate={membershipStartDate}
+          nextPaymentDate={nextPaymentDate}
+          paymentStatus={paymentStatus}
+          setFullName={setFullName}
+          setPhoneNumber={setPhoneNumber}
+          setEmailAddress={setEmailAddress}
+          setMembershipStartDate={setMembershipStartDate}
+          setNextPaymentDate={setNextPaymentDate}
+          setPaymentStatus={setPaymentStatus}
         />
 
         <div className="flex justify-end mt-4">

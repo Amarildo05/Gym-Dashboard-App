@@ -13,19 +13,34 @@ export default function UserTable({ data, onEdit, onDelete }) {
       },
     },
     {
-      title: "Name",
-      dataIndex: "name",
-      key: "name",
+      title: "Full Name",
+      dataIndex: "fullName",
+      key: "fullName",
     },
     {
-      title: "Role",
-      dataIndex: "role",
-      key: "role",
+      title: "Phone Number",
+      dataIndex: "phoneNumber",
+      key: "phoneNumber",
     },
     {
-      title: "Is Validated",
-      dataIndex: "is_validated",
-      key: "is_validated",
+      title: "Email Address",
+      dataIndex: "emailAddress",
+      key: "emailAddress",
+    },
+    {
+      title: "Membership Start Date",
+      dataIndex: "membershipStartDate",
+      key: "membershipStartDate",
+    },
+    {
+      title: "Next Payment Date",
+      dataIndex: "nextPaymentDate",
+      key: "nextPaymentDate",
+    },
+    {
+      title: "Payment Status",
+      dataIndex: "paymentStatus",
+      key: "paymentStatus",
     },
     {
       title: "Action",
