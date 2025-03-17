@@ -37,9 +37,24 @@ export default function UserModal({
 
   const handleSubmit = () => {
     if (creatingUser) {
-      onCreate({ fullName, phoneNumber, emailAddress, membershipStartDate, nextPaymentDate, paymentStatus });
+      onCreate({
+        fullName,
+        phoneNumber,
+        emailAddress,
+        membershipStartDate,
+        nextPaymentDate,
+        paymentStatus,
+      });
     } else {
-      onUpdate({ _id: editingItem._id, fullName, phoneNumber, emailAddress, membershipStartDate, nextPaymentDate, paymentStatus });
+      onUpdate({
+        _id: editingItem._id,
+        fullName,
+        phoneNumber,
+        emailAddress,
+        membershipStartDate,
+        nextPaymentDate,
+        paymentStatus,
+      });
     }
   };
 

@@ -80,12 +80,14 @@ export default function UserForm({
         <label className="block text-sm font-medium text-gray-700">
           Payment Status:
         </label>
-        <input
-          type="text"
+        <select
           value={paymentStatus}
           onChange={(e) => setPaymentStatus(e.target.value)}
           className="mt-1 px-3 py-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
-        />
+        >
+          <option value="active">Active</option>
+          <option value="inactive">Inactive</option>
+        </select>
       </div>
     </div>
   );

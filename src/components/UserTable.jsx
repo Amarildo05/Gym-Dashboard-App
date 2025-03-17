@@ -68,9 +68,11 @@ export default function UserTable({ data, onEdit, onDelete }) {
       <tbody>
         {data.map((user, index) => {
           const userId = user._id?.$oid || user._id; // Get the correct id format
+          const isActive = user.paymentStatus === "active";
+          const rowClass = isActive ? "bg-green-100" : "bg-red-100"; // Conditional row color
 
           return (
-            <tr key={userId || index} className="hover:bg-gray-50">
+            <tr key={userId || index} className={`${rowClass}`}>
               {columns.map((col) => (
                 <td key={col.key} className="border-t px-4 py-2">
                   {col.render ? col.render(user) : user[col.dataIndex]}
