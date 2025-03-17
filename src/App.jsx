@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import UserTable from "./components/UserTable";
 import UserModal from "./components/UserModal";
 import { useUsers } from "./hooks/useUsers";
+import ConfirmationModal from "./components/common/ConfirmationModal";
+import SuccessMessage from "./components/common/SuccessMessage";
 
 export default function App() {
   const { data, fetchData, createUser, updateUser, deleteUser } = useUsers();
@@ -9,6 +11,10 @@ export default function App() {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [creatingUser, setCreatingUser] = useState(false);
   const [editingItem, setEditingItem] = useState(null);
+  const [isDeleteConfirmationVisible, setIsDeleteConfirmationVisible] =
+    useState(false);
+  const [deletingItem, setDeletingItem] = useState(null);
+  const [successMessage, setSuccessMessage] = useState("");
 
   useEffect(() => {
     fetchData();
@@ -30,6 +36,29 @@ export default function App() {
     setEditingItem(null);
   };
 
+  const handleDelete = async (id) => {
+    setIsDeleteConfirmationVisible(true);
+    setDeletingItem(id);
+  };
+
+  const confirmDelete = async () => {
+    if (deletingItem) {
+      await deleteUser(deletingItem);
+      setSuccessMessage("Member deleted successfully");
+    }
+    setIsDeleteConfirmationVisible(false);
+    setDeletingItem(null);
+  };
+
+  const cancelDelete = () => {
+    setIsDeleteConfirmationVisible(false);
+    setDeletingItem(null);
+  };
+
+  const handleUpdateSuccess = () => {
+    setSuccessMessage("Member updated successfully");
+  };
+
   return (
     <div>
       <button
@@ -40,7 +69,7 @@ export default function App() {
         Create New Member
       </button>
 
-      <UserTable data={data} onEdit={handleShowModal} onDelete={deleteUser} />
+      <UserTable data={data} onEdit={handleShowModal} onDelete={handleDelete} />
 
       <UserModal
         visible={isModalVisible}
@@ -49,7 +78,21 @@ export default function App() {
         onUpdate={updateUser}
         onCancel={handleCancel}
         editingItem={editingItem}
+        onSuccess={handleUpdateSuccess}
       />
+
+      <ConfirmationModal
+        visible={isDeleteConfirmationVisible}
+        onConfirm={confirmDelete}
+        onCancel={cancelDelete}
+      />
+
+      {successMessage && (
+        <SuccessMessage
+          message={successMessage}
+          onClose={() => setSuccessMessage("")}
+        />
+      )}
     </div>
   );
 }

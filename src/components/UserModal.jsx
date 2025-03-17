@@ -9,6 +9,7 @@ export default function UserModal({
   onUpdate,
   onCancel,
   editingItem,
+  onSuccess,
 }) {
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -55,6 +56,7 @@ export default function UserModal({
         nextPaymentDate,
         paymentStatus,
       });
+      onSuccess(); // Trigger the success message
     }
   };
 
@@ -113,6 +115,7 @@ UserModal.propTypes = {
   onUpdate: PropTypes.func.isRequired,
   onCancel: PropTypes.func.isRequired,
   editingItem: PropTypes.object,
+  onSuccess: PropTypes.func.isRequired,
 };
 
 UserModal.defaultProps = {
