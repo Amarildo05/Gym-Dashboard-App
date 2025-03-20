@@ -32,7 +32,7 @@ export default function UserModal({
       setEmailAddress("");
       setMembershipStartDate("");
       setNextPaymentDate("");
-      setPaymentStatus("");
+      setPaymentStatus("active"); // active by default if no other option is chosed
     }
   }, [editingItem]);
 
