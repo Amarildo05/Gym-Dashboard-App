@@ -59,6 +59,10 @@ export default function App() {
     setSuccessMessage("Member updated successfully");
   };
 
+  const handleCreateSuccess = () => {
+    setSuccessMessage("Member created successfully");
+  };
+
   return (
     <div>
       <button
@@ -74,11 +78,14 @@ export default function App() {
       <UserModal
         visible={isModalVisible}
         creatingUser={creatingUser}
-        onCreate={createUser}
+        onCreate={(user) => {
+          createUser(user);
+          handleCreateSuccess(); // Trigger success message for creation
+        }}
         onUpdate={updateUser}
         onCancel={handleCancel}
         editingItem={editingItem}
-        onSuccess={handleUpdateSuccess}
+        onSuccess={creatingUser ? handleCreateSuccess : handleUpdateSuccess} // Use the success handler based on creatingUser
       />
 
       <ConfirmationModal

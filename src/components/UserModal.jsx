@@ -46,6 +46,7 @@ export default function UserModal({
         nextPaymentDate,
         paymentStatus,
       });
+      onSuccess(); // Trigger the success message after creating the user
     } else {
       onUpdate({
         _id: editingItem._id,
@@ -56,7 +57,7 @@ export default function UserModal({
         nextPaymentDate,
         paymentStatus,
       });
-      onSuccess(); // Trigger the success message
+      onSuccess(); // Trigger the success message after updating the user
     }
   };
 
