@@ -14,7 +14,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   height: 100%;
-  @apply bg-gray-100 font-sans text-gray-800;
+  @apply bg-gray-400 font-sans text-gray-800;
 }
 
 a {

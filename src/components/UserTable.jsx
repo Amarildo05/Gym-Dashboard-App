@@ -3,15 +3,6 @@ import UserActions from "./UserActions";
 
 export default function UserTable({ data, onEdit, onDelete }) {
   const columns = [
-    // {
-    //   title: "Id",
-    //   dataIndex: "id",
-    //   key: "id",
-    //   render: (user) => {
-    //     // Check if user._id is an object (from MongoDB objectId) or a string
-    //     return user._id && user._id.$oid ? user._id.$oid : user._id;
-    //   },
-    // },
     {
       title: "Full Name",
       dataIndex: "fullName",

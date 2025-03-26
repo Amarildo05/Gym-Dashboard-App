@@ -4,6 +4,7 @@ import UserModal from "./components/UserModal";
 import { useUsers } from "./hooks/useUsers";
 import ConfirmationModal from "./components/common/ConfirmationModal";
 import SuccessMessage from "./components/common/SuccessMessage";
+import Header from "./components/common/Header";
 
 export default function App() {
   const { data, fetchData, createUser, updateUser, deleteUser } = useUsers();
@@ -65,6 +66,7 @@ export default function App() {
 
   return (
     <div>
+      <Header />
       <button
         type="button"
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
