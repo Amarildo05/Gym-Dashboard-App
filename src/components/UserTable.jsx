@@ -1,6 +1,11 @@
 import PropTypes from "prop-types";
 import UserActions from "./UserActions";
 
+// Helper function to format dates
+function formatDate(date) {
+  return date.split("-").reverse().join("/"); // Simple approach
+}
+
 export default function UserTable({ data, onEdit, onDelete }) {
   const columns = [
     {
@@ -22,11 +27,13 @@ export default function UserTable({ data, onEdit, onDelete }) {
       title: "Membership Start Date",
       dataIndex: "membershipStartDate",
       key: "membershipStartDate",
+      render: (text) => formatDate(text), // Formated date
     },
     {
       title: "Next Payment Date",
       dataIndex: "nextPaymentDate",
       key: "nextPaymentDate",
+      render: (text) => formatDate(text), // Formated date
     },
     {
       title: "Payment Status",
@@ -66,7 +73,9 @@ export default function UserTable({ data, onEdit, onDelete }) {
             <tr key={userId || index} className={`${rowClass}`}>
               {columns.map((col) => (
                 <td key={col.key} className="border-t px-4 py-2">
-                  {col.render ? col.render(user) : user[col.dataIndex]}
+                  {col.render
+                    ? col.render(user[col.dataIndex])
+                    : user[col.dataIndex]}
                 </td>
               ))}
             </tr>
