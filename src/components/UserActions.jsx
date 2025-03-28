@@ -4,13 +4,13 @@ export default function UserActions({ record, onEdit, onDelete }) {
     <div className="flex space-x-2">
       <button
         className="px-3 py-1 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition duration-300"
-        onClick={() => onEdit(record)}
+        onClick={() => onEdit(record)} // Trigger edit
       >
         Edit
       </button>
       <button
         className="px-3 py-1 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
-        onClick={() => onDelete(record._id)}
+        onClick={() => onDelete(record._id)} // Trigger delete
       >
         Delete
       </button>

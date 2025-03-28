@@ -21,6 +21,7 @@ export default function Header({ onCreateClick }) {
   );
 }
 
+// PropTypes validation for the Header component
 Header.propTypes = {
   onCreateClick: PropTypes.func.isRequired,
 };

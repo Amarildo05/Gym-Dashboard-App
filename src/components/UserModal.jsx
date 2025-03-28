@@ -11,6 +11,7 @@ export default function UserModal({
   editingItem,
   onSuccess,
 }) {
+  // State for managing form fields
   const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
   const [emailAddress, setEmailAddress] = useState("");
@@ -18,6 +19,7 @@ export default function UserModal({
   const [nextPaymentDate, setNextPaymentDate] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
 
+  // Set form data if editing an existing user
   useEffect(() => {
     if (editingItem) {
       setFullName(editingItem.fullName);
@@ -32,10 +34,11 @@ export default function UserModal({
       setEmailAddress("");
       setMembershipStartDate("");
       setNextPaymentDate("");
-      setPaymentStatus("active"); // active by default if no other option is chosed
+      setPaymentStatus("active"); // "active" by default if no other option is chosed
     }
   }, [editingItem]);
 
+  // Submit form based on whether we're creating or updating a user
   const handleSubmit = () => {
     if (creatingUser) {
       onCreate({
@@ -61,7 +64,7 @@ export default function UserModal({
     }
   };
 
-  if (!visible) return null;
+  if (!visible) return null; // Hide modal if not visible
 
   return (
     <div
