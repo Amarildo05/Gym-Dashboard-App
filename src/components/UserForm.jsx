@@ -14,6 +14,14 @@ export default function UserForm({
   setNextPaymentDate,
   setPaymentStatus,
 }) {
+  // Simple validation functions
+  const isFullNameValid = (value) => {
+    const words = value.trim().split(/\s+/);
+    return value.length >= 5 && words.length >= 2;
+  }; // Full Name Validation: At least 5 characters & 2 words
+  const isPhoneNumberValid = (value) => /^[0-9]*$/.test(value); // Only numbers
+  const isEmailValid = (value) => /\S+@\S+\.\S+/.test(value); // Simple email regex
+
   return (
     <div className="space-y-4">
       <div>
@@ -26,6 +34,11 @@ export default function UserForm({
           onChange={(e) => setFullName(e.target.value)}
           className="mt-1 px-3 py-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
+        {!isFullNameValid(fullName) && fullName !== "" && (
+          <span className="text-red-500 text-xs">
+            Full Name must be at least 5 characters and at least 2 words.
+          </span>
+        )}
       </div>
 
       <div>
@@ -35,9 +48,18 @@ export default function UserForm({
         <input
           type="text"
           value={phoneNumber}
-          onChange={(e) => setPhoneNumber(e.target.value)}
+          onChange={(e) => {
+            if (isPhoneNumberValid(e.target.value) || e.target.value === "") {
+              setPhoneNumber(e.target.value);
+            }
+          }}
           className="mt-1 px-3 py-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
+        {!isPhoneNumberValid(phoneNumber) && phoneNumber !== "" && (
+          <span className="text-red-500 text-xs">
+            Phone number must be numeric.
+          </span>
+        )}
       </div>
 
       <div>
@@ -47,9 +69,16 @@ export default function UserForm({
         <input
           type="email"
           value={emailAddress}
-          onChange={(e) => setEmailAddress(e.target.value)}
+          onChange={(e) => {
+            setEmailAddress(e.target.value);
+          }}
           className="mt-1 px-3 py-2 w-full border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500"
         />
+        {!isEmailValid(emailAddress) && emailAddress !== "" && (
+          <span className="text-red-500 text-xs">
+            Please enter a valid email.
+          </span>
+        )}
       </div>
 
       <div>

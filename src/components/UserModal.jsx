@@ -18,6 +18,7 @@ export default function UserModal({
   const [membershipStartDate, setMembershipStartDate] = useState("");
   const [nextPaymentDate, setNextPaymentDate] = useState("");
   const [paymentStatus, setPaymentStatus] = useState("");
+  const [formError, setFormError] = useState(""); // state for error message (empty fields)
 
   // Set form data if editing an existing user
   useEffect(() => {
@@ -34,12 +35,29 @@ export default function UserModal({
       setEmailAddress("");
       setMembershipStartDate("");
       setNextPaymentDate("");
-      setPaymentStatus("active"); // "active" by default if no other option is chosed
+      setPaymentStatus("active"); // "active" by default if no other option is chosen
     }
   }, [editingItem]);
 
   // Submit form based on whether we're creating or updating a user
   const handleSubmit = () => {
+    if (
+      !fullName ||
+      !phoneNumber ||
+      !emailAddress ||
+      !membershipStartDate ||
+      !nextPaymentDate ||
+      !paymentStatus
+    ) {
+      setFormError("All fields are required. Please fill in all fields.");
+      // Remove the error message after 3 seconds
+      setTimeout(() => {
+        setFormError("");
+      }, 3000);
+      return;
+    }
+
+    // If all fields are valid, submit the form
     if (creatingUser) {
       onCreate({
         fullName,
@@ -91,6 +109,12 @@ export default function UserModal({
           setNextPaymentDate={setNextPaymentDate}
           setPaymentStatus={setPaymentStatus}
         />
+
+        {formError && (
+          <div className="text-red-500 p-2 mx-4 text-sm text-center">
+            {formError}
+          </div>
+        )}
 
         <div className="flex justify-end mt-3">
           <button
