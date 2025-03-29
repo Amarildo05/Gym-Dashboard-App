@@ -6,7 +6,7 @@ body {
   font-size: 16px;
   line-height: 1.5;
   height: 100%;
-  @apply bg-gray-600 font-sans text-gray-800;
+  @apply bg-gray-700 font-sans text-gray-800;
 }
 
 a {

@@ -43,29 +43,32 @@ export default function UserTable({ data, onEdit, onDelete }) {
   ];
 
   return (
-    <table className="table-auto w-full bg-white shadow-md rounded-lg border border-gray-200">
-      <thead className="bg-gray-200">
+    <table className="table-auto w-full bg-white shadow-md rounded-lg">
+      <thead className="bg-gray-300">
         <tr>
           {columns.map((col) => (
             <th
               key={col.key}
-              className="px-4 py-2 text-left font-semibold text-gray-700"
+              className="px-4 py-2 text-left font-semibold text-gray-800"
             >
               {col.title}
             </th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className="bg-gray-50">
         {data.map((user, index) => {
           const userId = user._id?.$oid || user._id; // Get the correct id format
           const isActive = user.paymentStatus === "active";
-          const rowClass = isActive ? "bg-green-200" : "bg-red-200"; // Conditional row color
+          const rowClass = isActive ? "bg-green-400" : "bg-red-400"; // Conditional row color
 
           return (
             <tr key={userId || index} className={`${rowClass}`}>
               {columns.map((col) => (
-                <td key={col.key} className="border-t px-4 py-2">
+                <td
+                  key={col.key}
+                  className="border-t border-b border-gray-500 px-4 py-2"
+                >
                   {col.render ? col.render(user) : user[col.dataIndex]}
                 </td>
               ))}
