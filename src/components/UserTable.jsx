@@ -20,18 +20,26 @@ export default function UserTable({ data, onEdit, onDelete }) {
     },
     {
       title: "Membership Start Date",
-      dataIndex: "membershipStartDate",
       key: "membershipStartDate",
+      render: (record) => {
+        const date = new Date(record.membershipStartDate);
+        return date.toLocaleDateString("en-GB"); // Formats to DD/MM/YYYY
+      },
     },
     {
       title: "Next Payment Date",
-      dataIndex: "nextPaymentDate",
       key: "nextPaymentDate",
+      render: (record) => {
+        const date = new Date(record.nextPaymentDate);
+        return date.toLocaleDateString("en-GB"); // Formats to DD/MM/YYYY
+      },
     },
     {
       title: "Payment Status",
-      dataIndex: "paymentStatus",
       key: "paymentStatus",
+      render: (record) =>
+        record.paymentStatus.charAt(0).toUpperCase() +
+        record.paymentStatus.slice(1),
     },
     {
       title: "Action",
