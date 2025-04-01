@@ -33,8 +33,10 @@ export default function UserModal({
       setFullName("");
       setPhoneNumber("");
       setEmailAddress("");
-      setMembershipStartDate("");
-      setNextPaymentDate("");
+      setMembershipStartDate(new Date().toISOString().split("T")[0]); // Set today as default
+      const nextPayment = new Date();
+      nextPayment.setMonth(nextPayment.getMonth() + 1); // 1 month later
+      setNextPaymentDate(nextPayment.toISOString().split("T")[0]); // Set next payment date as 1 month later
       setPaymentStatus("active"); // "active" by default if no other option is chosen
     }
   }, [editingItem]);

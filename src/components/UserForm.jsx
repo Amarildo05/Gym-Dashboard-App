@@ -17,8 +17,12 @@ export default function UserForm({
   // Simple validation functions
   const isFullNameValid = (value) => {
     const words = value.trim().split(/\s+/);
-    return value.length >= 3 && words.length >= 2;
-  }; // Full Name Validation: At least 5 characters & 2 words
+    return (
+      value.length >= 3 &&
+      words.length >= 2 &&
+      words.every((word) => word.length >= 2)
+    );
+  }; // At least 2 words and each word has at least 2 characters
   const isPhoneNumberValid = (value) => /^[0-9]*$/.test(value); // Only numbers
   const isEmailValid = (value) => /\S+@\S+\.\S+/.test(value); // Simple email regex
 
@@ -36,7 +40,7 @@ export default function UserForm({
         />
         {!isFullNameValid(fullName) && fullName !== "" && (
           <span className="text-red-500 text-xs">
-            Full Name must be at least 3 characters and at least 2 words.
+            Full Name must be at least 2 characters and at least 2 words.
           </span>
         )}
       </div>
