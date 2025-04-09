@@ -22,13 +22,20 @@ export default function UserModal({
 
   // Set form data if editing an existing user
   useEffect(() => {
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
     if (editingItem) {
       setFullName(editingItem.fullName);
       setPhoneNumber(editingItem.phoneNumber);
       setEmailAddress(editingItem.emailAddress);
       setMembershipStartDate(editingItem.membershipStartDate);
       setNextPaymentDate(editingItem.nextPaymentDate);
-      setPaymentStatus(editingItem.paymentStatus);
+
+      const nextDate = new Date(editingItem.nextPaymentDate);
+      nextDate.setHours(0, 0, 0, 0);
+
+      setPaymentStatus(nextDate <= today ? "inactive" : "active"); // Automatically set status
     } else {
       setFullName("");
       setPhoneNumber("");
@@ -36,10 +43,29 @@ export default function UserModal({
       setMembershipStartDate(new Date().toISOString().split("T")[0]); // Set today as default
       const nextPayment = new Date();
       nextPayment.setMonth(nextPayment.getMonth() + 1); // 1 month later
-      setNextPaymentDate(nextPayment.toISOString().split("T")[0]); // Set next payment date as 1 month later
-      setPaymentStatus("active"); // "active" by default if no other option is chosen
+      const formattedNext = nextPayment.toISOString().split("T")[0];
+      setNextPaymentDate(formattedNext); // Set next payment date as 1 month later
+
+      const nextDate = new Date(formattedNext);
+      nextDate.setHours(0, 0, 0, 0);
+      setPaymentStatus(nextDate <= today ? "inactive" : "active"); // "active" by default unless overdue
     }
   }, [editingItem]);
+
+  // Automatically update paymentStatus when nextPaymentDate changes
+  useEffect(() => {
+    const today = new Date();
+    const nextDate = new Date(nextPaymentDate);
+
+    today.setHours(0, 0, 0, 0);
+    nextDate.setHours(0, 0, 0, 0);
+
+    if (nextPaymentDate && nextDate <= today) {
+      setPaymentStatus("inactive");
+    } else {
+      setPaymentStatus("active");
+    }
+  }, [nextPaymentDate]);
 
   // Submit form based on whether we're creating or updating a user
   const handleSubmit = () => {
@@ -80,8 +106,9 @@ export default function UserModal({
         nextPaymentDate,
         paymentStatus,
       });
-      onSuccess(); // Trigger the success message after updating the user
     }
+    onSuccess(); // Trigger the success message after updating the user
+    onCancel();
   };
 
   if (!visible) return null; // Hide modal if not visible
