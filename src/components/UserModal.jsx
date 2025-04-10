@@ -67,6 +67,18 @@ export default function UserModal({
     }
   }, [nextPaymentDate]);
 
+  // Helper function to reset form fields after creating a member
+  const resetForm = () => {
+    setFullName("");
+    setPhoneNumber("");
+    setEmailAddress("");
+    setMembershipStartDate(new Date().toISOString().split("T")[0]); // Reset to today's date
+    const nextPayment = new Date();
+    nextPayment.setMonth(nextPayment.getMonth() + 1); // 1 month later
+    setNextPaymentDate(nextPayment.toISOString().split("T")[0]); // Reset to 1 month later
+    setPaymentStatus(""); // Reset payment status to "active"
+  };
+
   // Submit form based on whether we're creating or updating a user
   const handleSubmit = () => {
     if (
@@ -96,6 +108,7 @@ export default function UserModal({
         paymentStatus,
       });
       onSuccess(); // Trigger the success message after creating the user
+      resetForm(); // Reset form fields after successful creation
     } else {
       onUpdate({
         _id: editingItem._id,
