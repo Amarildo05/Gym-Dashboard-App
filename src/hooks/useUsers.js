@@ -1,37 +1,32 @@
 import { useState, useCallback } from "react";
 import axios from "axios";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
+
 export const useUsers = () => {
   const [data, setData] = useState([]);
 
-  // Fetch data from the server
   const fetchData = useCallback(async () => {
     try {
-      const response = await axios.get("http://localhost:3001/users");
+      const response = await axios.get(`${API_BASE_URL}/users`);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
     }
   }, []);
 
-  // Create a new user
   const createUser = async (newUser) => {
     try {
-      const response = await axios.post("http://localhost:3001/users", newUser);
-      setData([...data, response.data]); // Append new user to the list
+      const response = await axios.post(`${API_BASE_URL}/users`, newUser);
+      setData([...data, response.data]);
     } catch (error) {
       console.error("Error creating user:", error);
     }
   };
 
-  // Update user details
   const updateUser = async (updatedUser) => {
     try {
-      await axios.put(
-        `http://localhost:3001/users/${updatedUser._id}`,
-        updatedUser
-      );
-      // Update state with updated user
+      await axios.put(`${API_BASE_URL}/users/${updatedUser._id}`, updatedUser);
       setData(
         data.map((item) => (item._id === updatedUser._id ? updatedUser : item))
       );
@@ -40,16 +35,12 @@ export const useUsers = () => {
     }
   };
 
-  // Delete a user
   const deleteUser = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/users/${id}`);
-      setData(data.filter((item) => item._id !== id)); // Remove deleted user from state
+      await axios.delete(`${API_BASE_URL}/users/${id}`);
+      setData(data.filter((item) => item._id !== id));
     } catch (error) {
-      console.error(
-        "Error deleting user:",
-        error.response ? error.response.data : error.message
-      );
+      console.error("Error deleting user:", error);
     }
   };
 
