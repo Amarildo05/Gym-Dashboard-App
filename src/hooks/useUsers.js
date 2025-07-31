@@ -5,13 +5,17 @@ const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const useUsers = () => {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(false); // NEW State
 
   const fetchData = useCallback(async () => {
+    setLoading(true); // start loading
     try {
       const response = await axios.get(`${API_BASE_URL}/users`);
       setData(response.data);
     } catch (error) {
       console.error("Error fetching users:", error);
+    } finally {
+      setLoading(false); // stop loading
     }
   }, []);
 
@@ -44,5 +48,5 @@ export const useUsers = () => {
     }
   };
 
-  return { data, fetchData, createUser, updateUser, deleteUser };
+  return { data, loading, fetchData, createUser, updateUser, deleteUser }; // New State
 };

@@ -7,7 +7,8 @@ import SuccessMessage from "./components/common/SuccessMessage";
 import Header from "./components/common/Header";
 
 export default function App() {
-  const { data, fetchData, createUser, updateUser, deleteUser } = useUsers();
+  const { data, loading, fetchData, createUser, updateUser, deleteUser } =
+    useUsers();
 
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [creatingUser, setCreatingUser] = useState(false);
@@ -21,7 +22,6 @@ export default function App() {
     fetchData();
   }, [fetchData]);
 
-  // Show modal for creating or editing a user
   const handleShowModal = (item) => {
     if (item) {
       setEditingItem(item);
@@ -33,19 +33,16 @@ export default function App() {
     setIsModalVisible(true);
   };
 
-  // Close modal without saving
   const handleCancel = () => {
     setIsModalVisible(false);
     setEditingItem(null);
   };
 
-  // Show delete confirmation modal
   const handleDelete = async (id) => {
     setIsDeleteConfirmationVisible(true);
     setDeletingItem(id);
   };
 
-  // Confirm deletion of user
   const confirmDelete = async () => {
     if (deletingItem) {
       await deleteUser(deletingItem);
@@ -55,18 +52,15 @@ export default function App() {
     setDeletingItem(null);
   };
 
-  // Cancel deletion
   const cancelDelete = () => {
     setIsDeleteConfirmationVisible(false);
     setDeletingItem(null);
   };
 
-  // Success message for updating user
   const handleUpdateSuccess = () => {
     setSuccessMessage("Member updated successfully");
   };
 
-  // Success message for creating user
   const handleCreateSuccess = () => {
     setSuccessMessage("Member created successfully");
   };
@@ -75,21 +69,30 @@ export default function App() {
     <div>
       <Header onCreateClick={() => handleShowModal(null)} />
 
-      {/* Table displaying user data */}
-      <UserTable data={data} onEdit={handleShowModal} onDelete={handleDelete} />
+      {/* Loader while fetching data */}
+      {loading ? (
+        <div className="text-center mt-10 text-lg font-medium text-gray-700">
+          Loading members...
+        </div>
+      ) : (
+        <UserTable
+          data={data}
+          onEdit={handleShowModal}
+          onDelete={handleDelete}
+        />
+      )}
 
-      {/* Modal for creating or editing user */}
       <UserModal
         visible={isModalVisible}
         creatingUser={creatingUser}
         onCreate={(user) => {
           createUser(user);
-          handleCreateSuccess(); // Success message for creation
+          handleCreateSuccess();
         }}
         onUpdate={updateUser}
         onCancel={handleCancel}
         editingItem={editingItem}
-        onSuccess={creatingUser ? handleCreateSuccess : handleUpdateSuccess} // Use success handler based on creatingUser
+        onSuccess={creatingUser ? handleCreateSuccess : handleUpdateSuccess}
       />
 
       <ConfirmationModal
